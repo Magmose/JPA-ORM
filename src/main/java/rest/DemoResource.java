@@ -2,7 +2,7 @@ package rest;
 
 import com.google.gson.Gson;
 import entity.User;
-import entity.Wish;
+//import entity.Wish;
 import fetch.ParallelPinger;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,34 +54,17 @@ public class DemoResource {
         }
     }
 
+    
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("user")
     @RolesAllowed("user")
     public String getFromUser() throws Exception {
-        EntityManager em = PuSelector.getEntityManagerFactory("pu").createEntityManager();
         String thisUser = securityContext.getUserPrincipal().getName();
-        List<Wish> wishes = new ArrayList();
-        try {
-            wishes = em.createQuery("select wish from Wish wish where wish.user.userName = :userName ").setParameter("userName", thisUser).getResultList();
-            //String wishList = "{\"name\": \"" + thisUser + "\", \"flightWish\":[";
-            String jsonString = "{\"name\":\"" + thisUser + "\",\"flightWish\":[";
-            for (int i = 0; i < wishes.size(); i++) {
-                jsonString += ParallelPinger.getJsonFromAllServers(wishes.get(i).getWishID()) + ",";
-            }
-
-            String outPut = jsonString.substring(0, jsonString.length() - 1);
-            if (wishes.size() > 0) {
-                return outPut + "]}";
-            } else {
-                return "{\"name\":\"" + thisUser + "\",\"flightWish\":\"[]\"}";
-            }
-
-        } finally {
-            em.close();
-        }
+        return "{\"name\":\"" + thisUser + "\"}";
     }
-
+     
+ /*
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Path("user/wishpost/{wish}")
@@ -107,7 +90,8 @@ public class DemoResource {
             }
         }
     }
-
+     */
+ /*
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
     @Path("user/wishdelete/{wish}")
@@ -131,7 +115,7 @@ public class DemoResource {
             em.close();
         }
     }
-
+     */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("admin")

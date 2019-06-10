@@ -36,9 +36,6 @@ public class User implements Serializable {
         @JoinColumn(name = "role_name", referencedColumnName = "role_name")})
     @ManyToMany
     private List<Role> roleList = new ArrayList();
-    
-    @OneToMany
-    private List<Wish> wishList = new ArrayList();
 
     public List<String> getRolesAsStrings() {
         if (roleList.isEmpty()) {
@@ -57,8 +54,6 @@ public class User implements Serializable {
     public User(String userName) {
         this.userName = userName;
     }
-    
-    
 
     //TODO Change when password is hashed
     public boolean verifyPassword(String pw) {
@@ -71,14 +66,6 @@ public class User implements Serializable {
         this.userPass = hashed;
     }
 
-    public List<Wish> getWishList() {
-        return wishList;
-    }
-
-    public void setWishList(List<Wish> wishList) {
-        this.wishList = wishList;
-    }
-    
 
     public String getUserName() {
         return userName;

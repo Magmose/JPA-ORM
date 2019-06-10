@@ -39,9 +39,5 @@ public class UserFacade {
         return user;
     }
     
-    public List<Wish> getUserWish(String username) {
-        List<Wish> wishes = new ArrayList();
-        return wishes;
-    }
 
 }
